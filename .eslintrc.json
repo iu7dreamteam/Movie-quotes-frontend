@@ -18,11 +18,20 @@
         "react"
     ],
     "rules": {
+        "react/jsx-indent-props": "off",
+        "react/destructuring-assignment": [0],
+        "max-classes-per-file": ["error", 15],
         "react/prop-types": 0,
         "linebreak-style": ["error", "unix"],
         "indent": ["error", 4],
         "react/jsx-indent": ["error", 4],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "react/prefer-stateless-function": "off"
+        "react/prefer-stateless-function": "off",
+        "prefer-destructuring": ["error", {
+            "AssignmentExpression": {
+                "array": false,
+                "object": false
+            }
+        }]
     }
 }
