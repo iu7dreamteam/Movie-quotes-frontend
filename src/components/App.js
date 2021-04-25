@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
+import Navbar from './Navbar';
+
 import '../styles/App.css';
 
 class App extends React.Component {
@@ -8,7 +10,7 @@ class App extends React.Component {
         return (
             <Router>
                 <div>
-                    <h1>Movie quotes</h1>
+                    <Navbar />
                     <Switch />
                 </div>
             </Router>
