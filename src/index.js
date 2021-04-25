@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import App from './components/App';
 import configureStore from './store';
 
+import 'bootswatch/dist/lux/bootstrap.css';
+
 const store = configureStore();
 
 ReactDOM.render(
