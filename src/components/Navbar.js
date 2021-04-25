@@ -50,9 +50,11 @@ function UserDropdown(props) {
         }
     };
 
+    const { username } = props;
+
     return (
         <div style={{ marginTop: '7px', marginBottom: '7px' }}>
-            <NavDropdown onClick={onClick} title={props.username} alignRight>
+            <NavDropdown onClick={onClick} title={username} alignRight>
                 <NavDropdown.Item id="goToHistory">История</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item id="logout">Выйти</NavDropdown.Item>
@@ -65,6 +67,7 @@ class Navbar extends React.Component {
     render() {
         let rightSide;
 
+        // eslint-disable-next-line no-constant-condition
         if (true) {
             rightSide = <AuthButtons />;
         } else {
