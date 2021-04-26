@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Navbar from './Navbar';
+import Signup from './Signup';
 
 import '../styles/App.css';
 
@@ -11,7 +12,9 @@ class App extends React.Component {
             <Router>
                 <div>
                     <Navbar />
-                    <Switch />
+                    <Switch>
+                        <Route execat to="/join" component={Signup} />
+                    </Switch>
                 </div>
             </Router>
         );
