@@ -13,19 +13,31 @@ class EntryField extends React.Component {
             value: '',
             valueState: val.NOT_VALIDATED,
         };
+        this.value = '';
 
         this.onChange = this.onChange.bind(this);
         this.validate = this.validate.bind(this);
 
         this.props.bindValidation(this.validate);
+
+        this.onChangeSubscribers = [];
     }
 
     onChange(e) {
+        this.value = e.target.value;
         this.setState({ value: e.target.value });
+
+        for (let idx = 0; idx < this.onChangeSubscribers.length; idx += 1) {
+            this.onChangeSubscribers[idx](this.value);
+        }
+    }
+
+    onChangeSubscribe(subscriber) {
+        this.onChangeSubscribers.push(subscriber);
     }
 
     validate(updateState = false) {
-        const isValid = this.props.validate(this.state.value);
+        const isValid = this.props.validator(this.state.value);
         if (updateState) {
             this.setState({ valueState: isValid ? val.VALID : val.INVALID });
         }
@@ -44,6 +56,7 @@ class EntryField extends React.Component {
                     isValid={isValid}
                     isInvalid={isInvalid}
                     placeholder={this.props.placeholder}
+                    type={this.props.type}
                 />
             </InputGroup>
         );

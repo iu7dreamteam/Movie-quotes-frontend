@@ -1,178 +1,13 @@
 import React from 'react';
 import {
-    Container, InputGroup, FormControl, Button,
+    Container, Button,
 } from 'react-bootstrap';
 
-import validateEmail from '../utility/validators/validateEmail';
-import validateUsername from '../utility/validators/validateUsername';
-import validatePassword from '../utility/validators/validatePassword';
+import UsernameField from './UsernameField';
+import EmailField from './EmailField';
+import PasswordField from './PasswordField';
 
 import * as val from '../constants/Validation';
-
-class EntryField extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: '',
-            valueState: val.NOT_VALIDATED,
-        };
-
-        this.onChange = this.onChange.bind(this);
-        this.validate = this.validate.bind(this);
-
-        this.props.bindValidation(this.validate);
-    }
-
-    onChange(e) {
-        this.setState({ value: e.target.value });
-    }
-
-    validate(updateState = false) {
-        const isValid = this.props.validate(this.state.value);
-        if (updateState) {
-            this.setState({ valueState: isValid ? val.VALID : val.INVALID });
-        }
-        return isValid;
-    }
-
-    render() {
-        const isValid = this.state.valueState === val.VALID;
-        const isInvalid = this.state.valueState === val.INVALID;
-
-        return (
-            <InputGroup className="mb-3">
-                {this.props.children}
-                <FormControl
-                    onChange={this.onChange}
-                    isValid={isValid}
-                    isInvalid={isInvalid}
-                    placeholder={this.props.placeholder}
-                />
-            </InputGroup>
-        );
-    }
-}
-
-//class UsernameField extends React.Component {
-    //constructor(props) {
-        //super(props);
-
-        //this.state = {
-            //value: '',
-            //valueState: val.NOT_VALIDATED,
-        //};
-
-        //this.onChange = this.onChange.bind(this);
-        //this.validate = this.validate.bind(this);
-
-        //this.props.bindValidation(this.validate);
-    //}
-
-    //onChange(e) {
-        //this.setState({ value: e.target.value });
-    //}
-
-    //validate(updateState = false) {
-        //const isValid = validateUsername(this.state.value);
-        //if (updateState) {
-            //this.setState({ valueState: isValid ? val.VALID : val.INVALID });
-        //}
-        //return isValid;
-    //}
-
-    //render() {
-        //const isValid = this.state.valueState === val.VALID;
-        //const isInvalid = this.state.valueState === val.INVALID;
-
-        //return (
-            //<InputGroup className="mb-3">
-                //<InputGroup.Prepend>
-                    //<InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-                //</InputGroup.Prepend>
-                //<FormControl onChange={this.onChange} isValid={isValid} isInvalid={isInvalid} placeholder="Username" />
-            //</InputGroup>
-        //);
-    //}
-//}
-
-class EmailField extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: '',
-            valueState: val.NOT_VALIDATED,
-        };
-
-        this.onChange = this.onChange.bind(this);
-        this.validate = this.validate.bind(this);
-
-        this.props.bindValidation(this.validate);
-    }
-
-    onChange(e) {
-        this.setState({ value: e.target.value });
-    }
-
-    validate(updateState = false) {
-        const isValid = validateEmail(this.state.value);
-        if (updateState) {
-            this.setState({ valueState: isValid ? val.VALID : val.INVALID });
-        }
-        return isValid;
-    }
-
-    render() {
-        const isValid = this.state.valueState === val.VALID;
-        const isInvalid = this.state.valueState === val.INVALID;
-
-        return (
-            <InputGroup className="mb-3">
-                <FormControl onChange={this.onChange} isValid={isValid} isInvalid={isInvalid} placeholder="Email" />
-            </InputGroup>
-        );
-    }
-}
-
-class PasswordField extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: '',
-            valueState: val.NOT_VALIDATED,
-        };
-
-        this.onChange = this.onChange.bind(this);
-        this.validate = this.validate.bind(this);
-
-        this.props.bindValidation(this.validate);
-    }
-
-    onChange(e) {
-        this.setState({ value: e.target.value });
-    }
-
-    validate(updateState = false) {
-        const isValid = validatePassword(this.state.value);
-        if (updateState) {
-            this.setState({ valueState: isValid ? val.VALID : val.INVALID });
-        }
-        return isValid;
-    }
-
-    render() {
-        const isValid = this.state.valueState === val.VALID;
-        const isInvalid = this.state.valueState === val.INVALID;
-
-        return (
-            <InputGroup className="mb-3">
-                <FormControl onChange={this.onChange} isValid={isValid} isInvalid={isInvalid} type="password" placeholder="Password" />
-            </InputGroup>
-        );
-    }
-}
 
 class Signup extends React.Component {
     constructor(props) {
@@ -182,20 +17,32 @@ class Signup extends React.Component {
         this.bindValidation = this.bindValidation.bind(this);
 
         this.validators = [];
+        this.usernameField = React.createRef();
+        this.emailField = React.createRef();
+        this.passwordField = React.createRef();
+        this.repeatPasswordField = React.createRef();
     }
 
     // eslint-disable-next-line class-methods-use-this
     onSubmit(e) {
         let isValid = true;
+        const password = this.passwordField.current.value;
+        const repeatPassword = this.repeatPasswordField.current.value;
 
         for (let idx = 0; idx < this.validators.length && isValid; idx += 1) {
             isValid &&= this.validators[idx]();
+        }
+
+        if (password !== repeatPassword) {
+            isValid = false;
         }
 
         if (!isValid) {
             for (let idx = 0; idx < this.validators.length; idx += 1) {
                 this.validators[idx](true);
             }
+            this.passwordField.current.entryField.current.setState({ valueState: val.INVALID });
+            this.repeatPasswordField.current.entryField.current.setState({ valueState: val.INVALID });
             e.preventDefault();
         }
     }
@@ -231,19 +78,23 @@ class Signup extends React.Component {
                 <div className="row justify-content-md-center">
                     <div className="col col-4">
                         <form onSubmit={this.onSubmit}>
-                            <EntryField bindValidation={this.bindValidation} placeholder="Username" validate={validateUsername}>
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-                                </InputGroup.Prepend>
-                            </EntryField>
-
-                            <EmailField id="email-field" bindValidation={this.bindValidation} />
-
-                            <PasswordField id="password-field" bindValidation={this.bindValidation}/>
-
-                            <InputGroup className="mb-3" id="input-repeat-password">
-                                <FormControl type="password" placeholder="Repeat password" />
-                            </InputGroup>
+                            <UsernameField
+                                bindValidation={this.bindValidation}
+                                ref={this.usernameField}
+                            />
+                            <EmailField
+                                bindValidation={this.bindValidation}
+                                ref={this.emailField}
+                            />
+                            <PasswordField
+                                bindValidation={this.bindValidation}
+                                ref={this.passwordField}
+                            />
+                            <PasswordField
+                                bindValidation={this.bindValidation}
+                                ref={this.repeatPasswordField}
+                                placeholder="Repeat password"
+                            />
 
                             <Button block variant="primary" type="sumbit" className="mt-4" id="signup-btn">
                                 Создать аккаунт
