@@ -8,6 +8,7 @@ import Signup from './Signup';
 import SignIn from './SignIn';
 import History from './History';
 import NotFound from './NotFound';
+import Theater from './Theater';
 
 import '../styles/App.css';
 
@@ -17,6 +18,7 @@ class App extends React.Component {
             <Router>
                 <Navbar />
                 <Switch>
+                    <Route path="/theater" component={Theater} />
                     <Route exact path="/" component={Homepage} />
                     <Route path="/history" component={History} />
                     <Route path="/join" component={Signup} />
