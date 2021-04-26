@@ -12,7 +12,6 @@ import * as val from '../constants/Validation';
 class Signup extends React.Component {
     constructor(props) {
         super(props);
-        this.onClick = this.onClick.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.bindValidation = this.bindValidation.bind(this);
 
@@ -33,7 +32,8 @@ class Signup extends React.Component {
             isValid &&= this.validators[idx]();
         }
 
-        if (password !== repeatPassword) {
+        const samePasswords = password !== repeatPassword;
+        if (samePasswords) {
             isValid = false;
         }
 
@@ -41,19 +41,17 @@ class Signup extends React.Component {
             for (let idx = 0; idx < this.validators.length; idx += 1) {
                 this.validators[idx](true);
             }
-            this.passwordField.current.entryField.current.setState({ valueState: val.INVALID });
-            this.repeatPasswordField.current.entryField.current.setState({ valueState: val.INVALID });
-            e.preventDefault();
-        }
-    }
 
-    // eslint-disable-next-line class-methods-use-this
-    onClick(e) {
-        switch (e.target.id) {
-        case 'sigup-btn':
-            break;
-        default:
-            break;
+            if (samePasswords) {
+                this.passwordField.current.entryField.current.setState({
+                    valueState: val.INVALID,
+                });
+                this.repeatPasswordField.current.entryField.current.setState({
+                    valueState: val.INVALID,
+                });
+            }
+
+            e.preventDefault();
         }
     }
 
@@ -96,7 +94,7 @@ class Signup extends React.Component {
                                 placeholder="Repeat password"
                             />
 
-                            <Button block variant="primary" type="sumbit" className="mt-4" id="signup-btn">
+                            <Button block variant="primary" type="submit" className="mt-4" id="signup-btn">
                                 Создать аккаунт
                             </Button>
                         </form>

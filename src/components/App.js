@@ -12,14 +12,14 @@ class App extends React.Component {
     render() {
         return (
             <Router>
-                <div>
-                    <Navbar />
-                    <Switch>
-                        <Route execat to="/history" component={History} />
-                        <Route execat to="/join" component={Signup} />
-                        <Route execat to="/login" component={SignIn} />
-                    </Switch>
-                </div>
+                <Navbar />
+                <Switch>
+                    <Route exact path="/" component={() => <h1>Домащняя страница</h1>} />
+                    <Route path="/history" component={History} />
+                    <Route path="/join" component={Signup} />
+                    <Route path="/login" component={SignIn} />
+                    <Route component={() => <h1>Не найдено</h1>} />
+                </Switch>
             </Router>
         );
     }
