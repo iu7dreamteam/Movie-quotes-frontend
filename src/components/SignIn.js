@@ -70,7 +70,7 @@ class SignIn extends React.Component {
                                 ref={this.passwordField}
                             />
 
-                            <Button block variant="primary" type="sumbit" className="mt-4" id="sign-in-btn">
+                            <Button block variant="primary" type="submit" className="mt-4" id="sign-in-btn">
                                 Войти
                             </Button>
                         </form>
