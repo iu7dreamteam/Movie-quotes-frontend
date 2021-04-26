@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Navbar from './Navbar';
 import Homepage from './Homepage';
+import Loadingpage from './Loadingpage';
 import Signup from './Signup';
 import SignIn from './SignIn';
 import History from './History';
@@ -19,6 +20,7 @@ class App extends React.Component {
                     <Route path="/history" component={History} />
                     <Route path="/join" component={Signup} />
                     <Route path="/login" component={SignIn} />
+                    <Route path="/loading" component={Loadingpage} />
                     <Route component={() => <h1>Не найдено</h1>} />
                 </Switch>
             </Router>
