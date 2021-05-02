@@ -62,7 +62,7 @@ class Signup extends React.Component {
     render() {
         return (
             <Container>
-                <div className="text-center mt-5 mb-4">
+                <div className="text-center mt-4 mb-5">
                     <h2>
                         Создайте свою собственную
                         <br />

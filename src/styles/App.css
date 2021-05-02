@@ -1,6 +1,18 @@
 @import '~bootstrap-icons/font/bootstrap-icons';
 
-h1 {
-    color: #110199;
-    text-align: center;
+html {
+    overflow-y: overlay;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+  
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+  
+::-webkit-scrollbar-thumb {
+    background: rgba(26, 26, 26, 0.25);
 }
