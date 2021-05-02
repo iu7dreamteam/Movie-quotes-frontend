@@ -1,0 +1,17 @@
+#searchButton,
+#searchInput {
+    outline:0px !important;
+    box-shadow: none !important;
+}
+
+#searchGroup {
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}
+
+#searchGroup:focus-within {
+  color: #55595c !important;
+  background-color: #f7f7f9 !important;
+  border-color: #5a5a5a !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 0.2rem rgba(26, 26, 26, 0.25) !important;
+}
