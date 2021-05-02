@@ -13,6 +13,7 @@ class MatchList extends React.Component {
                 genre="вестерн"
                 cnt="5"
                 to=""
+                className="col col-md-4"
                 //className="flex-wrap"
                 //style={{ display: 'inline-block', marginRight: "25px" }}
                 style={{ flexWrap: 'initial' }}

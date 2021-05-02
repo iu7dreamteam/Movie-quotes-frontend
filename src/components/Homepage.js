@@ -30,7 +30,7 @@ class Homepage extends React.Component {
                 >
                     <div className="container">
                         <div className="mb-4">
-                            <h1>
+                            <h1 className="text-center">
                                 MOVIE QUOTES
                             </h1>
                         </div>
