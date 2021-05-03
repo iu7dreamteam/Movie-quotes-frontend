@@ -75,7 +75,7 @@ class Navbar extends React.Component {
         }
 
         return (
-            <BSNavbar bg="light" variant="light">
+            <BSNavbar bg="light" variant="light" fixed="top" style={{ position: 'sticky' }}>
                 <Container>
                     <LinkContainer exact to="/">
                         <BSNavbar.Brand>Movie quotes</BSNavbar.Brand>

@@ -3,6 +3,8 @@ import {
     Container, InputGroup, FormControl, Button,
 } from 'react-bootstrap';
 
+import '../styles/Homepage.css';
+
 class Homepage extends React.Component {
     constructor(props) {
         super(props);
@@ -28,18 +30,29 @@ class Homepage extends React.Component {
                 >
                     <div className="container">
                         <div className="mb-4">
-                            <h1>
-                                MOVIE QOUTES
+                            <h1 className="text-center">
+                                MOVIE QUOTES
                             </h1>
                         </div>
                         <form onSubmit={this.onSubmit}>
-                            <InputGroup>
+                            <InputGroup id="searchGroup">
                                 <FormControl
+                                    id="searchInput"
                                     ref={this.inputRef}
                                     placeholder="Введите цитату..."
+                                    style={{
+                                        height: '48px',
+                                    }}
                                 />
                                 <InputGroup.Append>
-                                    <Button variant="primary" type="submit">
+                                    <Button
+                                        id="searchButton"
+                                        variant="primary"
+                                        type="submit"
+                                        style={{
+                                            height: '48px',
+                                        }}
+                                    >
                                         <i className="bi bi-search" />
                                     </Button>
                                 </InputGroup.Append>
