@@ -2,11 +2,25 @@ import React from 'react';
 import {
     Card, Popover, OverlayTrigger,
 } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
 
 import truncateIfOver from '../utility/text/truncateIfOver';
 
 class Match extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.doAction = this.doAction.bind(this);
+    }
+
+    doAction(e) {
+        if (typeof this.props.action === 'function') {
+            this.props.action({
+                movieIdx: this.props.movieIdx,
+                ...e,
+            });
+        }
+    }
+
     render() {
         const moviePopover = (
             <Popover>
@@ -53,7 +67,7 @@ class Match extends React.Component {
 
         let quote = this.props.quote;
         if (quote) {
-            quote = `"${truncateIfOver(quote, 80)}"`;
+            quote = `\u00AB${truncateIfOver(quote, 80)}\u00BB`;
         }
 
         return (
@@ -62,36 +76,38 @@ class Match extends React.Component {
                 style={{
                     ...this.props.style,
                     border: 'none',
+                    whiteSpace: 'normal',
                 }}
             >
                 <OverlayTrigger
                     trigger={['hover', 'focus']}
                     placement="auto"
                     overlay={moviePopover}
-                    className="d-flex"
                 >
-                    <LinkContainer
-                        to={this.props.to}
+                    <div
                         style={{
                             cursor: 'pointer',
                         }}
+                        onClick={this.doAction}
+                        aria-hidden="true"
                     >
                         <Card.Img
                             src={this.props.posterURL}
                         />
-                    </LinkContainer>
+                    </div>
                 </OverlayTrigger>
-                <LinkContainer
-                    to={this.props.to}
+                <div
                     className="mt-2"
                     style={{
                         cursor: 'pointer',
                     }}
+                    onClick={this.doAction}
+                    aria-hidden="true"
                 >
                     <Card.Title>
                         {this.props.name}
                     </Card.Title>
-                </LinkContainer>
+                </div>
                 <OverlayTrigger
                     trigger={['hover', 'focus']}
                     placement="auto"
