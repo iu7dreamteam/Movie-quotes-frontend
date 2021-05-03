@@ -21,14 +21,12 @@ export default class VideoPlayer extends React.Component {
 
     render() {
         return (
-            <Container>
-                <div>
-                    <div data-vjs-player>
-                        {/* eslint-disable-next-line jsx-a11y/media-has-caption,no-return-assign */}
-                        <video ref={(node) => (this.videoNode = node)} className="video-js vjs-theme-fantasy" />
-                    </div>
+            <div style={this.props.style}>
+                <div data-vjs-player>
+                    {/* eslint-disable-next-line jsx-a11y/media-has-caption,no-return-assign */}
+                    <video ref={(node) => (this.videoNode = node)} className="video-js vjs-theme-fantasy" />
                 </div>
-            </Container>
+            </div>
         );
     }
 }

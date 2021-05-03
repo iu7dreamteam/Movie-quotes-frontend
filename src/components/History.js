@@ -33,7 +33,7 @@ class History extends React.Component {
         }
 
         const matchesComponents = matches.map((item) => (
-            <Match {...item} style={{ width: '350px' }} to={`${item.name}`} />
+            <Match {...item} style={{ width: '350px' }} action={() => console.log('Movie history')} />
         ));
 
         return (
