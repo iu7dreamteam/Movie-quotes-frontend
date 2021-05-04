@@ -3,7 +3,7 @@ import {
     Navbar as BSNavbar, Nav, Button, NavDropdown, ButtonToolbar, Container,
 }
     from 'react-bootstrap';
-import { NavLink, useHistory } from 'react-router-dom';
+import { Redirect, NavLink, useHistory } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 
 function AuthButtons() {
@@ -43,7 +43,8 @@ function UserDropdown(props) {
             history.push('/history');
             break;
         case 'logout':
-            history.push('/logout');
+            props.signOut();
+            history.push('/');
             break;
         default:
             break;
@@ -67,11 +68,15 @@ class Navbar extends React.Component {
     render() {
         let rightSide;
 
-        // eslint-disable-next-line no-constant-condition
-        if (true) {
-            rightSide = <AuthButtons />;
+        if (this.props.isAuthenticated) {
+            rightSide = (
+                <UserDropdown
+                    username={this.props.user.username}
+                    signOut={this.props.signOut}
+                />
+            );
         } else {
-            rightSide = <UserDropdown username="jopa" />;
+            rightSide = <AuthButtons />;
         }
 
         return (

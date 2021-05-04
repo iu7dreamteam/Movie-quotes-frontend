@@ -1,7 +1,9 @@
 import React from 'react';
 import {
     Container, Button,
+    Alert,
 } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 import EmailField from './EmailField';
 import PasswordField from './PasswordField';
@@ -9,7 +11,6 @@ import PasswordField from './PasswordField';
 class SignIn extends React.Component {
     constructor(props) {
         super(props);
-        this.onClick = this.onClick.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.bindValidation = this.bindValidation.bind(this);
 
@@ -33,16 +34,11 @@ class SignIn extends React.Component {
 
             e.preventDefault();
         }
-    }
 
-    // eslint-disable-next-line class-methods-use-this
-    onClick(e) {
-        switch (e.target.id) {
-        case 'sign-in-btn':
-            break;
-        default:
-            break;
+        if (isValid) {
+            this.props.signIn(this.emailField.current.value, this.passwordField.current.value);
         }
+        e.preventDefault();
     }
 
     bindValidation(validator) {
@@ -50,6 +46,24 @@ class SignIn extends React.Component {
     }
 
     render() {
+        if (this.props.isAuthenticated) {
+            return <Redirect to="/" />;
+        }
+
+        let alert = null;
+        if (this.props.error) {
+            alert = (
+                <Alert variant="danger" className="mt-5">
+                    <Alert.Heading>
+                        {`Ошибка ${this.props.error.status}`}
+                    </Alert.Heading>
+                    <p>
+                        {this.props.error.message}
+                    </p>
+                </Alert>
+            );
+        }
+
         return (
             <Container>
                 <div className="text-center mt-4 mb-5">
@@ -74,6 +88,8 @@ class SignIn extends React.Component {
                                 Войти
                             </Button>
                         </form>
+
+                        {alert}
                     </div>
                 </div>
             </Container>
