@@ -1,8 +1,10 @@
-// import { combineReducers } from 'redux';
+import { combineReducers } from 'redux';
+import user from './user';
+import error from './error';
+import isLoading from './isLoading';
 
-// export default combineReducers({
-//
-// });
-
-// eslint-disable-next-line no-unused-vars
-export default function(state = {}, action) { return state; }
+export default combineReducers({
+    user,
+    error,
+    isLoading,
+});

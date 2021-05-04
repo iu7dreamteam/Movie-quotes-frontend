@@ -15,7 +15,7 @@ class Loadingpage extends React.Component {
                     }}
                 >
                     <div className="container">
-                        <h1 className="align-bottom">
+                        <h1 className="align-bottom text-center">
                             Загрузка
                             {' '}
                             <Spinner animation="border mb-2" />

@@ -4,6 +4,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import reducer from './reducers';
 
+const initialState = {
+};
+
 export default function configureStore() {
     const middlewares = [thunk, logger];
 
@@ -11,6 +14,7 @@ export default function configureStore() {
 
     return createStore(
         reducer,
+        initialState,
         composeWithDevTools(middlewareEnhancer),
     );
 }
