@@ -6,7 +6,7 @@ import {
 import Navbar from '../views/Navbar';
 import Homepage from './Homepage';
 import Loadingpage from './Loadingpage';
-import Signup from './Signup';
+import SignUp from './SignUp';
 import SignIn from '../views/SignIn';
 import History from './History';
 import NotFound from './NotFound';
@@ -48,7 +48,7 @@ class App extends React.Component {
                     <Route exact path="/" component={Homepage} />
                     <Route path="/theater" component={Theater} />
                     <Route path="/history" component={History} />
-                    <Route path="/join" component={Signup} />
+                    <Route path="/join" component={SignUp} />
                     <Route path="/login" component={SignIn} />
                     <Route component={NotFound} />
                 </SwitchWrapper>

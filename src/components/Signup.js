@@ -9,7 +9,7 @@ import PasswordField from './PasswordField';
 
 import * as val from '../constants/Validation';
 
-class Signup extends React.Component {
+class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
@@ -105,4 +105,4 @@ class Signup extends React.Component {
     }
 }
 
-export default Signup;
+export default SignUp;
