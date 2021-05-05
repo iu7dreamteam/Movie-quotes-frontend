@@ -52,6 +52,16 @@ class Theater extends React.Component {
                         type: 'video/mp4',
                     },
                 );
+
+                if (this.props.isAuthenticated) {
+                    this.props.saveWatchToHistory({
+                        movie_id: this.props.searchResult.matches[e.movieIdx].movie.id,
+                        quote: this.props.searchResult.quote,
+                        subtitle_ids: this.props.searchResult.matches[e.movieIdx]
+                            .quotes.map((quote) => quote.id),
+                    },
+                    this.props.user.username);
+                }
             }
         };
 

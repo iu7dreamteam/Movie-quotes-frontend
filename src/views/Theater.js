@@ -3,13 +3,16 @@ import Theater from '../components/Theater';
 
 import {
     searchMatches,
+    saveWatchToHistory,
 } from '../actions';
 
 function mapStateToProps(state) {
     return {
+        user: state.user,
         error: state.error,
         isLoading: state.isLoading,
         searchResult: state.searchResult,
+        isAuthenticated: state.user.username && state.user.email,
     };
 }
 
@@ -18,6 +21,9 @@ function mapDispatchToProps(dispatch) {
 
     return {
         searchMatches: (quote) => dispatch(searchMatches(quote, senderTag)),
+        saveWatchToHistory: (watch, username) => dispatch(
+            saveWatchToHistory(watch, username, senderTag),
+        ),
     };
 }
 
