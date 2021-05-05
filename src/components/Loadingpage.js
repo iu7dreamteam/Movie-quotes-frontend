@@ -6,7 +6,7 @@ import {
 class Loadingpage extends React.Component {
     render() {
         return (
-            <Container>
+            <div className={this.props.className}>
                 <div
                     style={{
                         minHeight: '80vh',
@@ -22,7 +22,7 @@ class Loadingpage extends React.Component {
                         </h1>
                     </div>
                 </div>
-            </Container>
+            </div>
         );
     }
 }
