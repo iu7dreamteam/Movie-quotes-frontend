@@ -18,7 +18,7 @@ class Theater extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.props.error && !this.props.isLoading) {
+        if (!this.props.error && !this.props.isLoading && !this.props.historyMode) {
             const search = this.props.location.search;
             const searchParams = new URLSearchParams(search);
             const quote = searchParams.get('quote');
@@ -30,6 +30,15 @@ class Theater extends React.Component {
     }
 
     render() {
+        let matchesList = this.props.searchResult;
+        if (this.props.historyMode) {
+            const watch = this.props.watchHistory.watches[this.props.watchIdx];
+            matchesList = {
+                quote: watch.quote,
+                matches: [watch],
+            };
+        }
+
         const videoJsOptions = {
             autoplay: false,
             width: 16 * 63,
@@ -48,14 +57,24 @@ class Theater extends React.Component {
                 });
                 this.playerRef.current.player.src(
                     {
-                        src: this.props.searchResult.matches[e.movieIdx].movie.url,
+                        src: matchesList.matches[e.movieIdx].movie.url,
                         type: 'video/mp4',
                     },
                 );
+
+                if (this.props.isAuthenticated && !this.props.historyMode) {
+                    this.props.saveWatchToHistory({
+                        movie_id: matchesList.matches[e.movieIdx].movie.id,
+                        quote: matchesList.quote,
+                        subtitle_ids: matchesList.matches[e.movieIdx]
+                            .quotes.map((quote) => quote.id),
+                    },
+                    this.props.user.username);
+                }
             }
         };
 
-        const matches = this.props.searchResult.matches.map(({ movie, quotes }, idx) => (
+        const matches = matchesList.matches.map(({ movie, quotes }, idx) => (
             <Match
                 movieIdx={idx}
                 key={movie.id}
@@ -86,7 +105,7 @@ class Theater extends React.Component {
 
         let timecodes = [];
         if (this.state.currentMatchIdx >= 0) {
-            timecodes = this.props.searchResult
+            timecodes = matchesList
                 .matches[this.state.currentMatchIdx]
                 .quotes.map((quote, idx) => (
                     <TimeCode

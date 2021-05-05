@@ -1,7 +1,9 @@
 import React from 'react';
 import { Container, CardColumns } from 'react-bootstrap';
+import { Redirect, useHistory } from 'react-router-dom';
 
 import Match from './Match';
+import Theater from '../views/Theater';
 
 function splitMatchesToRows(matches, rowLen) {
     const rows = [];
@@ -18,23 +20,48 @@ function splitMatchesToRows(matches, rowLen) {
 }
 
 class History extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.showWatchHistory(this.props.user.username);
+    }
+
     render() {
-        const matches = [];
-        for (let i = 0; i < 19; i += 1) {
-            matches.push({
-                name: (i !== 2 ? 'Омерзительная восьмёрка' : 'Очень-очень длинная омерзительная восьмёрка, аж на несколько строк. Очень много места занимает'),
-                director: 'Квентин Тарантино',
-                year: '2015',
-                genre: 'вестерн',
-                cnt: 5,
-                quote: (i !== 2 ? 'Привет, Рост. Как дела? Тут вот очень длинная цитата для тебя.' : 'ddddddddddddddd dddddddddddddddddddd dddddddddd dddddddssssss  sssssss  sssssssssssss sssssssssd'),
-                key: i,
-            });
+        if (!this.props.isAuthenticated) {
+            return <Redirect to="/login" />;
         }
 
-        const matchesComponents = matches.map((item) => (
-            <Match {...item} style={{ width: '350px' }} action={() => console.log('Movie history')} />
-        ));
+        const searchParams = new URLSearchParams(this.props.location.search);
+        if (searchParams.has('idx') && this.props.watchHistory.watches.length) {
+            const watchIdx = parseInt(searchParams.get('idx'), 10);
+            return <Theater historyMode watchIdx={watchIdx} />;
+        }
+
+        const MatchWrapper = () => {
+            const history = useHistory();
+
+            const onClick = (e) => history.push(`/history?idx=${e.movieIdx}`);
+
+            const matches = this.props.watchHistory.watches.map(({ quote, movie, quotes }, idx) => (
+                <Match
+                    movieIdx={idx}
+                    key={movie.id}
+                    name={movie.title}
+                    year={movie.year}
+                    director={movie.director}
+                    posterURL={movie.poster}
+                    cnt={quotes.length}
+                    quote={quote}
+                    action={onClick}
+                    style={{ width: '350px' }}
+                />
+            ));
+
+            return (
+                <div>
+                    {splitMatchesToRows(matches, 3)}
+                </div>
+            );
+        };
 
         return (
             <Container>
@@ -43,7 +70,7 @@ class History extends React.Component {
                 </div>
                 <div className="row justify-content-center">
                     <div className="col col-12">
-                        {splitMatchesToRows(matchesComponents, 3)}
+                        <MatchWrapper />
                     </div>
                 </div>
             </Container>
