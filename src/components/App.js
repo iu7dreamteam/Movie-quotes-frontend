@@ -11,7 +11,7 @@ import SignUp from './SignUp';
 import SignIn from '../views/SignIn';
 import History from './History';
 import NotFound from './NotFound';
-import Theater from './Theater';
+import Theater from '../views/Theater';
 
 import '../styles/App.css';
 

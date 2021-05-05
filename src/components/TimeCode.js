@@ -10,17 +10,9 @@ export default class TimeCode extends React.Component {
     }
 
     render() {
-        const zeroPad = (num) => `0${num}`.substr(-2);
-
         const onMouseEnter = () => this.setState({ hovered: true });
         const onMouseLeave = () => this.setState({ hovered: false });
-        const onClick = () => console.log(this.props.timecode);
-
-        const timecodeStr = (
-            `${zeroPad(this.props.timecode.hour)}:`
-            + `${zeroPad(this.props.timecode.minute)}:`
-            + `${zeroPad(this.props.timecode.second)}`
-        );
+        const timecodeStr = this.props.timecode.slice(0, 8);
 
         return (
             <li
@@ -31,7 +23,10 @@ export default class TimeCode extends React.Component {
                 }}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
-                onClick={onClick}
+                onClick={(e) => {
+                    e.timecodeFromProps = this.props.timecode;
+                    this.props.onClick(e);
+                }}
                 aria-hidden="true"
             >
                 {timecodeStr}
