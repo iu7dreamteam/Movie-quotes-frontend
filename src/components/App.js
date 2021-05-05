@@ -9,14 +9,15 @@ import Homepage from './Homepage';
 import Loadingpage from './Loadingpage';
 import SignUp from './SignUp';
 import SignIn from '../views/SignIn';
-import History from './History';
+import History from '../views/History';
 import NotFound from './NotFound';
 import Theater from '../views/Theater';
 
 import '../styles/App.css';
 
 class App extends React.Component {
-    componentDidMount() {
+    constructor(props) {
+        super(props);
         this.props.loadUserFromMemory();
     }
 

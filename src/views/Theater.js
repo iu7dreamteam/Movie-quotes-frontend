@@ -12,6 +12,7 @@ function mapStateToProps(state) {
         error: state.error,
         isLoading: state.isLoading,
         searchResult: state.searchResult,
+        watchHistory: state.watchHistory,
         isAuthenticated: state.user.username && state.user.email,
     };
 }

@@ -43,12 +43,6 @@ class Match extends React.Component {
                     <br />
                     {' '}
                     <b>
-                        Жанр:
-                    </b>
-                    {' '}
-                    {this.props.genre}
-                    <br />
-                    <b>
                         Вхождений цитаты:
                     </b>
                     {' '}
