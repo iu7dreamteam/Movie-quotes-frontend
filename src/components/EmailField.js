@@ -7,7 +7,11 @@ class EmailField extends React.Component {
     constructor(props) {
         super(props);
 
-        this.value = '';
+        if (this.props.defaultValue) {
+            this.value = this.props.defaultValue;
+        } else {
+            this.value = '';
+        }
         this.entryField = React.createRef();
     }
 
@@ -21,9 +25,10 @@ class EmailField extends React.Component {
         return (
             <EntryField
                 bindValidation={this.props.bindValidation}
-                placeholder="Email"
                 validator={validateEmail}
                 ref={this.entryField}
+                defaultValue={this.props.defaultValue}
+                placeholder="Email"
             />
         );
     }

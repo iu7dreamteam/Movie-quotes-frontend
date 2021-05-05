@@ -36,6 +36,10 @@ export function signIn(email, password, sender = null) {
                 {
                     sender,
                     ...parseResponseStr(error.message),
+                    data: {
+                        email,
+                        password,
+                    },
                 },
                 sender,
             )))

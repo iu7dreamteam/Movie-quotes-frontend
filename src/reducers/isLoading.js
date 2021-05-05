@@ -4,9 +4,9 @@ const initialState = false;
 
 export default function isLoading(state = initialState, action) {
     switch (action.type) {
-    case types.SET_LOADING_HOVER:
+    case types.SHOW_LOADING_HOVER:
         return true;
-    case types.UNSET_LOADING_HOVER:
+    case types.HIDE_LOADING_HOVER:
         return false;
     default:
         return state;

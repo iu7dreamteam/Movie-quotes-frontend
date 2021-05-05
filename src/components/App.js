@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-    BrowserRouter as Router, Route, Switch, useLocation,
+    BrowserRouter as Router, Route, Switch,
+    useHistory,
 } from 'react-router-dom';
 
 import Navbar from '../views/Navbar';
@@ -20,22 +21,16 @@ class App extends React.Component {
     }
 
     render() {
-        if (this.props.isLoading) {
-            return (
-                <Loadingpage />
-            );
-        }
-
         const SwitchWrapper = (props) => {
-            const location = useLocation();
+            const history = useHistory();
 
             React.useEffect(() => {
-                this.props.hideError();
-                console.log(location);
-            }, [location]);
+                const unlisten = history.listen(this.props.hideError);
+                return unlisten;
+            }, []);
 
             return (
-                <Switch>
+                <Switch className={props.className}>
                     {props.children}
                 </Switch>
             );
@@ -43,15 +38,18 @@ class App extends React.Component {
 
         return (
             <Router>
-                <Navbar />
-                <SwitchWrapper>
-                    <Route exact path="/" component={Homepage} />
-                    <Route path="/theater" component={Theater} />
-                    <Route path="/history" component={History} />
-                    <Route path="/join" component={SignUp} />
-                    <Route path="/login" component={SignIn} />
-                    <Route component={NotFound} />
-                </SwitchWrapper>
+                <Loadingpage className={`loading-cover ${this.props.isLoading ? 'visible' : 'hidden'}`} />
+                <div className={this.props.isLoading ? 'hidden' : 'visible'}>
+                    <Navbar />
+                    <SwitchWrapper>
+                        <Route exact path="/" component={Homepage} />
+                        <Route path="/theater" component={Theater} />
+                        <Route path="/history" component={History} />
+                        <Route path="/join" component={SignUp} />
+                        <Route path="/login" component={SignIn} />
+                        <Route component={NotFound} />
+                    </SwitchWrapper>
+                </div>
             </Router>
         );
     }

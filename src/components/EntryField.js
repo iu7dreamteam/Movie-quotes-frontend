@@ -15,6 +15,11 @@ class EntryField extends React.Component {
         };
         this.value = '';
 
+        if (this.props.defaultValue) {
+            this.value = this.props.defaultValue;
+            this.state.value = this.props.defaultValue;
+        }
+
         this.onChange = this.onChange.bind(this);
         this.validate = this.validate.bind(this);
 
@@ -55,8 +60,9 @@ class EntryField extends React.Component {
                     onChange={this.onChange}
                     isValid={isValid}
                     isInvalid={isInvalid}
-                    placeholder={this.props.placeholder}
                     type={this.props.type}
+                    defaultValue={this.props.defaultValue}
+                    placeholder={this.props.placeholder}
                 />
             </InputGroup>
         );
