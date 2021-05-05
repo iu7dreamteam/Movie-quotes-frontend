@@ -93,6 +93,9 @@ class Match extends React.Component {
                     >
                         <Card.Img
                             src={this.props.posterURL}
+                            onError={(e) => {
+                                e.target.src = '../../assets/default/poster.png';
+                            }}
                         />
                     </div>
                 </OverlayTrigger>

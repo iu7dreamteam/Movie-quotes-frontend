@@ -2,28 +2,62 @@ import React from 'react';
 import {
     Container, InputGroup, FormControl, Button,
 } from 'react-bootstrap';
+import {
+    useHistory,
+} from 'react-router-dom';
 
 import '../styles/Homepage.css';
 
+function SearchForm() {
+    const history = useHistory();
+
+    const onSubmit = (e) => {
+        const quote = e.target[0].value;
+
+        if (quote) {
+            const searchParam = new URLSearchParams();
+
+            searchParam.append('quote', quote);
+            history.push(`/theater?${searchParam.toString()}`);
+        }
+
+        e.preventDefault();
+    };
+
+    return (
+        <form onSubmit={onSubmit}>
+            <InputGroup id="searchGroup">
+                <FormControl
+                    id="searchInput"
+                    placeholder="Введите цитату..."
+                    style={{
+                        height: '48px',
+                    }}
+                />
+                <InputGroup.Append>
+                    <Button
+                        id="searchButton"
+                        variant="primary"
+                        type="submit"
+                        style={{
+                            height: '48px',
+                        }}
+                    >
+                        <i className="bi bi-search" />
+                    </Button>
+                </InputGroup.Append>
+            </InputGroup>
+        </form>
+    );
+}
+
 class Homepage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.inputRef = React.createRef();
-        this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    onSubmit(e) {
-        console.log(e);
-        console.log(this.inputRef.current.value);
-    }
-
     render() {
         return (
             <Container>
                 <div
                     style={{
-                        minHeight: '80vh',
+                        minHeight: '75vh',
                         display: 'flex',
                         alignItems: 'center',
                     }}
@@ -34,30 +68,7 @@ class Homepage extends React.Component {
                                 MOVIE QUOTES
                             </h1>
                         </div>
-                        <form onSubmit={this.onSubmit}>
-                            <InputGroup id="searchGroup">
-                                <FormControl
-                                    id="searchInput"
-                                    ref={this.inputRef}
-                                    placeholder="Введите цитату..."
-                                    style={{
-                                        height: '48px',
-                                    }}
-                                />
-                                <InputGroup.Append>
-                                    <Button
-                                        id="searchButton"
-                                        variant="primary"
-                                        type="submit"
-                                        style={{
-                                            height: '48px',
-                                        }}
-                                    >
-                                        <i className="bi bi-search" />
-                                    </Button>
-                                </InputGroup.Append>
-                            </InputGroup>
-                        </form>
+                        <SearchForm />
                     </div>
                 </div>
             </Container>

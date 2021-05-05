@@ -3,7 +3,7 @@ import {
     Navbar as BSNavbar, Nav, Button, NavDropdown, ButtonToolbar, Container,
 }
     from 'react-bootstrap';
-import { Redirect, NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 
 function AuthButtons() {
