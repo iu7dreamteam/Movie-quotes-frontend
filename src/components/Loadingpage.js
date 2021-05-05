@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Container, Spinner,
+    Spinner,
 } from 'react-bootstrap';
 
 class Loadingpage extends React.Component {

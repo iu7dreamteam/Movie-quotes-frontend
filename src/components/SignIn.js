@@ -78,6 +78,7 @@ class SignIn extends React.Component {
                             <EmailField
                                 bindValidation={this.bindValidation}
                                 ref={this.emailField}
+                                defaultValue={this.props.error ? this.props.error.data.email : null}
                             />
                             <PasswordField
                                 bindValidation={this.bindValidation}

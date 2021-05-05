@@ -13,7 +13,11 @@ class PasswordField extends React.Component {
             this.placeholder = this.props.placeholder;
         }
 
-        this.value = '';
+        if (this.props.defaultValue) {
+            this.value = this.props.defaultValue;
+        } else {
+            this.value = '';
+        }
         this.entryField = React.createRef();
     }
 
@@ -26,6 +30,7 @@ class PasswordField extends React.Component {
     render() {
         return (
             <EntryField
+                defaultValue={this.props.defaultValue}
                 bindValidation={this.props.bindValidation}
                 placeholder={this.placeholder}
                 validator={validatePassword}
