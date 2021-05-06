@@ -1,3 +1,7 @@
+branches:
+  only:
+    - master
+    - ^release\/.+$
 language: node.js
 node_js:
   - node
