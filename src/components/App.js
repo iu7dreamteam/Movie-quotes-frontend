@@ -7,7 +7,7 @@ import {
 import Navbar from '../views/Navbar';
 import Homepage from './Homepage';
 import Loadingpage from './Loadingpage';
-import SignUp from './SignUp';
+import SignUp from '../views/SignUp';
 import SignIn from '../views/SignIn';
 import History from '../views/History';
 import NotFound from './NotFound';
