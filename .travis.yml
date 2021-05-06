@@ -2,6 +2,9 @@ branches:
   only:
   - master
   - "/^release\\/.+$/"
+addons:
+  ssh_known_hosts:
+  - 167.99.214.209
 language: node.js
 node_js:
 - node
