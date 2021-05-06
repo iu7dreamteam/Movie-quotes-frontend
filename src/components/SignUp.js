@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-    Container, Button,
+    Container, Button, Alert,
 } from 'react-bootstrap';
 
+import { Redirect } from 'react-router-dom';
 import UsernameField from './UsernameField';
 import EmailField from './EmailField';
 import PasswordField from './PasswordField';
@@ -53,6 +54,16 @@ class SignUp extends React.Component {
 
             e.preventDefault();
         }
+
+        if (isValid) {
+            this.props.signUp(
+                this.usernameField.current.value,
+                this.emailField.current.value,
+                this.passwordField.current.value,
+                this.repeatPasswordField.current.value,
+            );
+        }
+        e.preventDefault();
     }
 
     bindValidation(validator) {
@@ -60,6 +71,24 @@ class SignUp extends React.Component {
     }
 
     render() {
+        if (this.props.isAuthenticated) {
+            return <Redirect to="/" />;
+        }
+
+        let alert = null;
+        if (this.props.error) {
+            alert = (
+                <Alert variant="danger" className="mt-5">
+                    <Alert.Heading>
+                        {`Ошибка ${this.props.error.status}`}
+                    </Alert.Heading>
+                    <p>
+                        {this.props.error.message}
+                    </p>
+                </Alert>
+            );
+        }
+
         return (
             <Container>
                 <div className="text-center mt-4 mb-5">
@@ -79,10 +108,14 @@ class SignUp extends React.Component {
                             <UsernameField
                                 bindValidation={this.bindValidation}
                                 ref={this.usernameField}
+                                defaultValue={
+                                    this.props.error ? this.props.error.data.username : null
+                                }
                             />
                             <EmailField
                                 bindValidation={this.bindValidation}
                                 ref={this.emailField}
+                                defaultValue={this.props.error ? this.props.error.data.email : null}
                             />
                             <PasswordField
                                 bindValidation={this.bindValidation}
@@ -98,6 +131,8 @@ class SignUp extends React.Component {
                                 Создать аккаунт
                             </Button>
                         </form>
+
+                        {alert}
                     </div>
                 </div>
             </Container>

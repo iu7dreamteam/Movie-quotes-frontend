@@ -51,3 +51,43 @@ export const signOut = (sender = null) => ({
     type: types.SIGN_OUT,
     sender,
 });
+
+export function signUp(username, email, password, repeatedPassword, sender = null) {
+    return (dispatch) => {
+        dispatch(showLoadingHover(sender));
+
+        fetch(`/${conf.api}/session/registration/`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+                username,
+                email,
+                password,
+                repeatedPassword,
+            }),
+        })
+            .then(acceptResponse)
+            .then((response) => response.json())
+            .then((data) => dispatch({
+                type: types.SIGN_IN,
+                value: data,
+                sender,
+            }))
+            .catch((error) => dispatch(showError(
+                {
+                    sender,
+                    ...parseResponseStr(error.message),
+                    data: {
+                        username,
+                        email,
+                        password,
+                        repeatedPassword,
+                    },
+                },
+                sender,
+            )))
+            .finally(() => dispatch(hideLoadingHover(sender)));
+    };
+}
