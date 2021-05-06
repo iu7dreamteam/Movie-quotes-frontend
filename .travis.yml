@@ -16,10 +16,10 @@ jobs:
   - stage: SSH
     name: Test ssh
     script:
-    - openssl aes-256-cbc -K $encrypted_3f2dabfde256_key -iv $encrypted_3f2dabfde256_iv -in travis_key.enc -out /tmp/travis_key -d
+    - openssl aes-256-cbc -K $encrypted_3f2dabfde256_key -iv $encrypted_3f2dabfde256_iv -in travis_key.enc -out travis_key -d
     - eval "$(ssh-agent -s)"
-    - chmod 600 /tmp/travis_key
-    - ssh-add /tmp/travis_key
+    - chmod 600 travis_key
+    - ssh-add travis_key
     - echo 'lex loh' > hi.txt
     - scp hi.txt root@167.99.214.209:/root/hi.txt
 #jobs:
