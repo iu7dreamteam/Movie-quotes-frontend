@@ -16,3 +16,7 @@ jobs:
       name: "Running linter"
       script:
         - npx eslint src/
+    - stage: "Build"
+      name: "Build"
+      script:
+        - npm run-script build
