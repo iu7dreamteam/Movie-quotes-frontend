@@ -1,0 +1,18 @@
+branches:
+  only:
+    - master
+    - release/*
+language: node.js
+node_js:
+  - node
+cache:
+  directories:
+    - "node_modules"
+install:
+  - npm install
+jobs:
+  include:
+    - stage: "Linter"
+      name: "Running linter"
+      script:
+        - npx eslint src/
