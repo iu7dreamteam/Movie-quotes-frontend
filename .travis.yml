@@ -36,7 +36,7 @@ deploy:
 - provider: script
   skip_cleanup: true
   script:
-  - scp dist root@167.99.214.209:/root/frontend -r
+  - scp -r dist root@167.99.214.209:/root/frontend
   on:
     branch: release/0.1.1
 
