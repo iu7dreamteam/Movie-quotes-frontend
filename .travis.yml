@@ -9,8 +9,8 @@ cache:
   directories:
   - node_modules
 sudo: false
-install:
-- npm install
+#install:
+#- npm install
 jobs:
   include:
   - stage: SSH
