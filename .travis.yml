@@ -16,6 +16,7 @@ install:
 - npm install
 jobs:
   include:
+    stage: Frontend
     name: Linting and building frontend
     script:
     - npx eslint src/
