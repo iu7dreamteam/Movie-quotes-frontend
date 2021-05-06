@@ -12,15 +12,6 @@ cache:
   directories:
   - node_modules
 sudo: false
-install:
-- npm install
-jobs:
-  include:
-  - stage: Frontend
-    name: Running linter and building
-    script:
-    - npx eslint src/
-    - npm run-script build
 before_deploy:
 - mkdir .ssh
 - openssl aes-256-cbc -K $encrypted_3f2dabfde256_key -iv $encrypted_3f2dabfde256_iv -in travis_key.enc -out .ssh/id_rsa -d
@@ -29,11 +20,23 @@ before_deploy:
 - chmod 600 .ssh/id_rsa
 - chmod 600 .ssh/id_rsa.pub
 - ssh-add .ssh/id_rsa
-deploy:
-- provider: script
-  skip_cleanup: true
-  script:
-  - scp -r dist root@167.99.214.209:/root/frontend
-  on:
-    branch: release/0.1.1
+install:
+- npm install
+jobs:
+  include:
+  - stage: Linter
+    name: Running linter
+    script:
+    - npx eslint src/
+  - stage: Build
+    name: Building application
+    script:
+    - npm run-script build
+    deploy:
+    - provider: script
+      skip_cleanup: true
+      script:
+      - scp -r dist root@167.99.214.209:/root/frontend
+      on:
+        branch: release/0.1.1
 
