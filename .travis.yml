@@ -39,4 +39,3 @@ jobs:
       - scp -r dist root@167.99.214.209:/root/frontend
       on:
         branch: release/0.1.1
-
