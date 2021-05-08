@@ -16,6 +16,7 @@ export default class TimeCode extends React.Component {
 
         return (
             <li
+                className="timecode"
                 style={{
                     cursor: 'pointer',
                     textDecoration: (this.state.hovered ? 'underline' : 'none'),

@@ -30,6 +30,28 @@ module.exports = {
                     },
                 },
             },
+            {
+                test: /\.ttf$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'fonts',
+                        publicPath: '../fonts',
+                    },
+                },
+            },
+            {
+                test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'images',
+                        publicPath: '../images',
+                    },
+                },
+            },
         ],
     },
     devServer: {
@@ -41,6 +63,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
+            favicon: './assets/favicon.png',
         }),
     ],
 };

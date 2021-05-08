@@ -2,15 +2,12 @@
 import React from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import { Container } from 'react-bootstrap';
 
 import '@videojs/themes/dist/fantasy/index.css';
 
 export default class VideoPlayer extends React.Component {
     componentDidMount() {
-        this.player = videojs(this.videoNode, this.props, function onPlayerReady() {
-            console.log('onPlayerReady', this);
-        });
+        this.player = videojs(this.videoNode, this.props);
     }
 
     componentWillUnmount() {
