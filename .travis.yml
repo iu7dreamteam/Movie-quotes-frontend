@@ -1,6 +1,7 @@
 branches:
   only:
   - master
+  - develop
   - "/^release\\/.+$/"
 addons:
   ssh_known_hosts:
@@ -38,4 +39,4 @@ jobs:
       script:
       - scp -r dist/* www-data@167.99.214.209:/var/www/movie-quotes.ru/html
       on:
-        branch: release/0.1.1
+        branch: master
