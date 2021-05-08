@@ -1,0 +1,52 @@
+@import '~bootstrap-icons/font/bootstrap-icons';
+
+@font-face {
+    font-family: "Montserrat";
+    src:
+        url("/assets/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype"),
+        url("/assets/fonts/Montserrat/Montserrat-Italic.ttf") format("truetype"),
+        url("/assets/fonts/Montserrat/Montserrat-Thin.ttf") format("truetype"),
+        url("/assets/fonts/Montserrat/Montserrat-ThinItalic.ttf") format("truetype");
+}
+
+html {
+    overflow-y: overlay;
+}
+
+.timecode {
+    font-family: 'Nunito Sans' !important;
+}
+body {
+    font-family: 'Montserrat' !important;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+  
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+  
+::-webkit-scrollbar-thumb {
+    background: rgba(26, 26, 26, 0.25);
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.loading-cover {
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
