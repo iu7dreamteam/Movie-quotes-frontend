@@ -1,7 +1,23 @@
 @import '~bootstrap-icons/font/bootstrap-icons';
 
+@font-face {
+    font-family: "Montserrat";
+    src:
+        url("/assets/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype"),
+        url("/assets/fonts/Montserrat/Montserrat-Italic.ttf") format("truetype"),
+        url("/assets/fonts/Montserrat/Montserrat-Thin.ttf") format("truetype"),
+        url("/assets/fonts/Montserrat/Montserrat-ThinItalic.ttf") format("truetype");
+}
+
 html {
     overflow-y: overlay;
+}
+
+.timecode {
+    font-family: 'Nunito Sans' !important;
+}
+body {
+    font-family: 'Montserrat' !important;
 }
 
 ::-webkit-scrollbar {

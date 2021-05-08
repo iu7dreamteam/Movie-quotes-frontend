@@ -61,6 +61,7 @@ class Theater extends React.Component {
                         type: 'video/mp4',
                     },
                 );
+                this.playerRef.current.player.poster(matchesList.matches[e.movieIdx].movie.poster);
 
                 if (this.props.isAuthenticated && !this.props.historyMode) {
                     this.props.saveWatchToHistory({
